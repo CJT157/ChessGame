@@ -1,5 +1,6 @@
 package Game;
 
 public abstract class ChessPiece {
-	private String name;
+	private String pieceColor;
+	private boolean moved;
 }
