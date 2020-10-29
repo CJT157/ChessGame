@@ -6,7 +6,7 @@ public class Board {
 	private Square[][] squares;
 	
 	public Board() {
-		
+		this.board = new Board();
 	}
 	
 	public Board getBoard() {
