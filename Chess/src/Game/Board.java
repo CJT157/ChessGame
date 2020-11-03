@@ -1,9 +1,5 @@
 package Game;
 
-import checkerboard.Canvas;
-import checkerboard.CheckerBoard;
-import checkerboard.SquareOld;
-
 public class Board {
 	private Board board;
 	private PieceSet[] pieceSets;
