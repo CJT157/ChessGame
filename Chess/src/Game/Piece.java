@@ -1,9 +1,19 @@
 package Game;
 
+import java.awt.Color;
+
+// Checker and King
+
 public abstract class Piece {
-	private String pieceColor;
+	private Color pieceColor;
 	private boolean moved;
-	private Square currentLocation;
+	
+	public Color getColor() {
+		return pieceColor;
+	}
+	public void setColor(Color color) {
+		this.pieceColor = color;
+	}
 
 	public abstract Square[] canMove(Square[] currentBoard);
 	

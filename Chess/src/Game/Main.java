@@ -9,6 +9,7 @@ import java.util.Stack;
 
 public class Main implements ActionListener{
 	JButton start, reset;
+	static Board gameBoard;
 	
 	/*
 	 * Creates application
@@ -28,11 +29,11 @@ public class Main implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
         if(e.getSource() == start)
         {
-            System.out.println("BOARD START GOES HERE");
+        	System.out.println("start");
         }
         else if(e.getSource() == reset)
         {
-            System.out.println("BOARD RESET GOES HERE");
+        	System.out.println("reset");
         }
     }
 	
@@ -41,19 +42,16 @@ public class Main implements ActionListener{
 	 * NOTE: Jack and Landon this is where the Board will be added to the application
 	 */
 	public static void createGUI() {
-		JFrame frame = new JFrame("CPS 210 Checkers");
+		JFrame frame = new JFrame("CPS 240 Checkers");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
-       
-		JPanel boardPanel = new JPanel();
-		boardPanel.setLocation(10, 10);
-		boardPanel.setSize(50,50);
 		
+		gameBoard = Board.getBoard();
 		Main gui = new Main();
 		frame.setContentPane(gui.createNavPane());
-		frame.add(boardPanel);
-       
-		frame.setSize(500,500);
+		
+		frame.add(gameBoard.getBoard());
+		
+		frame.setSize(528,575);
 		frame.setVisible(true);
 	}
 	
