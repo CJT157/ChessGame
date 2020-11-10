@@ -1,22 +1,15 @@
 package Game;
 
+import javax.swing.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Square {
-	private Color color;
+public class Square extends JButton implements ActionListener {
 	private Piece currPiece;
 	
-	public Square(Color color) {
-		this.color = color;
+	public Square() {
 		currPiece = null;
-	}
-	
-	public Color getColor() {
-		return color;
-	}
-	
-	public void setColor(Color color) {
-		this.color = color;
 	}
 	
 	public Piece getPiece() {
@@ -25,5 +18,14 @@ public class Square {
 	
 	public void setPiece(Piece piece) {
 		this.currPiece = piece;
+	}
+
+	public boolean hasPiece() {
+		return currPiece != null;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
 	}
 }
