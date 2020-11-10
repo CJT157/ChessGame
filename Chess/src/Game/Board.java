@@ -16,8 +16,7 @@ public class Board extends JPanel{
 	/**
 	 * Sets up the checker board panel.
 	 */
-	public Board()
-	{
+	public Board() {
 		setBackground(Color.lightGray);
 		setPreferredSize(new Dimension(500, 500));
 		this.squares = getBoardColors();
@@ -50,16 +49,14 @@ public class Board extends JPanel{
 
 		page.setColor(Color.white);
 		
-		for (int row = 0; row < squares.length; row++)
-		{
-			for (int col = 0; col < squares[row].length; col++)
-			{
+		for (int row = 0; row < squares.length; row++) {
+			for (int col = 0; col < squares[row].length; col++) {
 				page.setColor(squares[row][col].getColor());
 				page.fillRect(x, y, boxWidth, boxHeight);
-				/**
-				 * HEY ADD ACTION TO DRAW A PIECE
-				 * GOOD LUCK
-				 */
+				if(squares[row][col].getPiece() != null) {
+					page.setColor(squares[row][col].getPiece().getColor());
+					page.fillOval(x + 8, y + 8, boxWidth - 16, boxHeight - 16);
+				}
 				x += boxWidth;
 			}
 			x = 0;
@@ -72,18 +69,16 @@ public class Board extends JPanel{
 	 */
 	public Square[][] getBoardColors() {
 		Square[][] board = new Square[8][8];
-		for (int row = 0; row < board.length; row++)
-		{
-		   for (int col = 0; col < board[row].length; col++)
-		   {
+		for (int row = 0; row < board.length; row++) {
+		   for (int col = 0; col < board[row].length; col++) {
 		       if(row % 2 == col%2)
 		    	   board[row][col] = new Square(Color.red);
 		       else {
 		    	   board[row][col] = new Square(Color.white);
 		    	   if (row < 3) {
-		    		   //board[row][col].setPiece(redpiece);
+		    		   board[row][col].setPiece(new Checker(Color.red));
 		    	   } else if (row > 4) {
-		    		   //board[row][col].setPiece(blackpiece);
+		    		   board[row][col].setPiece(new Checker(Color.black));
 		    	   }
 		       }
 		    }

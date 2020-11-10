@@ -8,9 +8,18 @@ public abstract class Piece {
 	private Color pieceColor;
 	private boolean moved;
 	
+	public Piece() {
+		
+	}
+	
+	public Piece(Color color) {
+		this.pieceColor = color;
+	}
+	
 	public Color getColor() {
 		return pieceColor;
 	}
+	
 	public void setColor(Color color) {
 		this.pieceColor = color;
 	}

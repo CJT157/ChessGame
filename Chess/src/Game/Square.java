@@ -14,7 +14,16 @@ public class Square {
 	public Color getColor() {
 		return color;
 	}
+	
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public Piece getPiece() {
+		return currPiece;
+	}
+	
+	public void setPiece(Piece piece) {
+		this.currPiece = piece;
 	}
 }

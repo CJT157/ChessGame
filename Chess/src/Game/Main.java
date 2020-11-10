@@ -51,7 +51,7 @@ public class Main implements ActionListener{
 		
 		frame.add(gameBoard.getBoard());
 		
-		frame.setSize(528,575);
+		frame.setSize(528,585);
 		frame.setVisible(true);
 	}
 	
