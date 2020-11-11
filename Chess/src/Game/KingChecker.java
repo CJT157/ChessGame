@@ -1,6 +1,6 @@
 package Game;
 
-public class KingChecker extends Piece{
+public class KingChecker extends Piece {
 
 	@Override
 	public Square[] canMove(Square[] currentBoard) {

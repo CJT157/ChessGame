@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Stack;
 
-public class Main implements ActionListener{
+public class Main implements ActionListener {
 	JButton start, reset;
 	static Board board = Board.getBoard();
 	
 	/*
 	 * Creates application
 	 */
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createGUI();
@@ -34,6 +34,7 @@ public class Main implements ActionListener{
         else if(e.getSource() == reset)
         {
         	System.out.println("reset");
+        	board.resetPieces();
         }
     }
 	
@@ -52,6 +53,8 @@ public class Main implements ActionListener{
 		
 		frame.setSize(528,585);
 		frame.setVisible(true);
+		frame.setResizable(false);
+		board.resetPieces();
 	}
 	
 	
