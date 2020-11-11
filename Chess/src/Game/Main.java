@@ -9,6 +9,7 @@ import java.util.Stack;
 
 public class Main implements ActionListener{
 	JButton start, reset;
+	static Board board = Board.getBoard();
 	
 	/*
 	 * Creates application
@@ -47,12 +48,11 @@ public class Main implements ActionListener{
 		Main gui = new Main();
 		frame.setContentPane(gui.createNavPane());
 		
-		frame.add(Board.getBoard());
+		frame.add(board);
 		
 		frame.setSize(528,585);
 		frame.setVisible(true);
 	}
-
 	
 	
 	/*

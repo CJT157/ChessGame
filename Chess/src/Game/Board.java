@@ -19,7 +19,6 @@ public class Board extends JPanel {
 	public Board() {
 		setBackground(Color.lightGray);
 		setPreferredSize(new Dimension(500, 500));
-//		this.squares = getBoardColors();
 	}
 	
 	/**
@@ -78,25 +77,7 @@ public class Board extends JPanel {
 		board.setSquares(squares);
 	}
 	
-//	/**
-//	 * Creates a 2d array of squares to display on the application
-//	 */
-//	public Square[][] getBoardColors() {
-//		Square[][] board = new Square[8][8];
-//		for (int row = 0; row < board.length; row++) {
-//		   for (int col = 0; col < board[row].length; col++) {
-//		       if(row % 2 == col%2)
-//		    	   board[row][col] = new Square(Color.red);
-//		       else {
-//		    	   board[row][col] = new Square(Color.white);
-//		    	   if (row < 3) {
-//		    		   board[row][col].setPiece(new Checker(Color.red));
-//		    	   } else if (row > 4) {
-//		    		   board[row][col].setPiece(new Checker(Color.black));
-//		    	   }
-//		       }
-//		    }
-//		}
-//		return board;
-//	}
+	public void resetPieces() {
+		
+	}
 }
