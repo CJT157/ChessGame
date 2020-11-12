@@ -4,11 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.Random;
-import java.util.Stack;
-
 public class Main implements ActionListener {
-	JButton start, reset;
+	JButton reset;
 	static Board board = Board.getBoard();
 	
 	/*
@@ -27,13 +24,8 @@ public class Main implements ActionListener {
 	 * NOTE: Put Board start/reset funcitonality here
 	 */
 	public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == start)
+		if(e.getSource() == reset)
         {
-        	System.out.println("start");
-        }
-        else if(e.getSource() == reset)
-        {
-        	System.out.println("reset");
         	board.resetPieces();
         }
     }
@@ -66,15 +58,10 @@ public class Main implements ActionListener {
 		navPanel.setLocation(220, 10);
 		navPanel.setSize(150, 100);
        
-		start = new JButton("Start");
-		start.addActionListener(this);
-		start.setPreferredSize(new Dimension(100,30));
-       
 		reset = new JButton("Reset");
 		reset.addActionListener(this);
 		reset.setPreferredSize(new Dimension(100,30));
-       
-		navPanel.add(start);
+		
 		navPanel.add(reset);
        
 		return navPanel;

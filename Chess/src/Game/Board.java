@@ -2,13 +2,14 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener {
 	private final int ROWS = 8;
 	private final int COLS = 8;
 	private ImageIcon whiteSquare = new ImageIcon(this.getClass().getResource("images/square_white.jpg"));
@@ -55,6 +56,7 @@ public class Board extends JPanel {
 			for (int j = 0; j < COLS; j++) {
 				squares[i][j] = new Square();
 				squares[i][j].setPreferredSize(new Dimension(57,57));
+				squares[i][j].addActionListener(this);
 
 				if (i % 2 == 0) {
 					if (j % 2 == 0) {
@@ -91,6 +93,17 @@ public class Board extends JPanel {
 					squares[i][j].setIcon(regWhitePiece);
 				}
 
+			}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < this.ROWS; i++) {
+			for (int j = 0; j < this.COLS; j++) {
+				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
+					System.out.println(i + " " + j);
+				}
 			}
 		}
 	}
