@@ -5,9 +5,9 @@ import java.awt.Color;
 // Checker and King
 
 public abstract class Piece {
-	private Color pieceColor;
-	private int x;
-	private int y;
+	protected Color pieceColor;
+	protected int x;
+	protected int y;
 	
 	public Piece(Color pieceColor, int x, int y) {
 		this.pieceColor = pieceColor;
@@ -18,11 +18,12 @@ public abstract class Piece {
 	public Color getColor() {
 		return pieceColor;
 	}
+	
 	public int getX() { return x; }
 	public void setX(int x) { this.x = x; }
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }
 
-	public abstract Square[] canMove(Square[][] currentBoard);
+	public abstract Square[][] canMove(Square[][] currentBoard);
 	public abstract boolean captured();
 }

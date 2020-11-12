@@ -2,6 +2,8 @@ package Game;
 
 import java.awt.*;
 
+import javax.swing.ImageIcon;
+
 public class KingChecker extends Piece {
 
 	public KingChecker(Color pieceColor, int x, int y) {
@@ -9,12 +11,21 @@ public class KingChecker extends Piece {
 	}
 
 	@Override
-	public Square[] canMove(Square[][] currentBoard) {
-		Square[] possibleLocations = new Square[4];
-		//Use currentLocation to reference currentBoard
-		
-		//return [i1j1, i2j2]
-		return possibleLocations;
+	public Square[][] canMove(Square[][] currentBoard) {
+		ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
+		if (!currentBoard[this.x + 1][this.y - 1].hasPiece()) {
+			currentBoard[this.x + 1][this.y - 1].setIcon(highlightedSquare);
+		} 
+		if (!currentBoard[this.x + 1][this.y + 1].hasPiece()) {
+			currentBoard[this.x + 1][this.y + 1].setIcon(highlightedSquare);
+		}
+		if (!currentBoard[this.x - 1][this.y - 1].hasPiece()) {
+			currentBoard[this.x - 1][this.y - 1].setIcon(highlightedSquare);
+		} 
+		if (!currentBoard[this.x - 1][this.y + 1].hasPiece()) {
+			currentBoard[this.x - 1][this.y + 1].setIcon(highlightedSquare);
+		}
+		return currentBoard;
 	}
 
 	@Override

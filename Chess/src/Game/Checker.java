@@ -2,6 +2,8 @@ package Game;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
+
 public class Checker extends Piece {
 	private boolean promoted;
 	private Piece promoteTo;
@@ -11,12 +13,34 @@ public class Checker extends Piece {
 	}
 	
 	@Override
-	public Square[] canMove(Square[][] currentBoard) {
-		Square[] possibleLocations = new Square[2];
-		//Use currentLocation to reference currentBoard
+	public Square[][] canMove(Square[][] currentBoard) {
+		ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
+		int x = this.x;
 		
-		//return [i1j1, i2j2]
-		return possibleLocations;
+		if (this.pieceColor == Color.gray) {
+			x += 1;
+		} else {
+			x -= 1;
+		}
+		
+		try {
+			if (!currentBoard[x][this.y - 1].hasPiece()) {
+				currentBoard[x][this.y - 1].setHighlighted(true);
+				currentBoard[x][this.y - 1].setIcon(highlightedSquare);
+			} 
+		} catch (Exception e) {
+			
+		}
+		try {
+			if (!currentBoard[x][this.y + 1].hasPiece()) {
+				currentBoard[x][this.y + 1].setHighlighted(true);
+				currentBoard[x][this.y + 1].setIcon(highlightedSquare);
+			}
+		} catch (Exception e) {
+			
+		}
+
+		return currentBoard;
 	}
 	
 	@Override

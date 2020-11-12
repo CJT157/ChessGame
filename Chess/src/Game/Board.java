@@ -20,7 +20,8 @@ public class Board extends JPanel implements ActionListener {
 
 	private static Board board;
 	private Square[][] squares = new Square[ROWS][COLS];
-	
+	private Square selectedSquare = new Square();
+
 	/**
 	 * Sets up the checker board panel.
 	 */
@@ -28,7 +29,7 @@ public class Board extends JPanel implements ActionListener {
 		setBackground(Color.lightGray);
 		setPreferredSize(new Dimension(500, 500));
 	}
-	
+
 	/**
 	 * Singleton to create board
 	 */
@@ -44,7 +45,7 @@ public class Board extends JPanel implements ActionListener {
 	public void setSquares(Square[][] squares) {
 		this.squares = squares;
 	}
-	
+
 	/**
 	 * Displays squares and checkers on the application
 	 */
@@ -52,7 +53,6 @@ public class Board extends JPanel implements ActionListener {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				squares[i][j] = new Square();
-				squares[i][j].setPreferredSize(new Dimension(57,57));
 				squares[i][j].addActionListener(this);
 
 				if (i % 2 == 0) {
@@ -70,15 +70,15 @@ public class Board extends JPanel implements ActionListener {
 				}
 
 				squares[i][j].setOpaque(true);
-				
+
 				board.add(squares[i][j]);
 			}
 		}
 	}
-	
+
 	public void resetPieces() {
 		for (int i = 0; i < this.ROWS; i++) {
-			for (int j = 0; j < this.COLS; j++) {
+			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 
 				if (i < 3 && i % 2 == 0 && j % 2 == 1) {
 					squares[i][j].setIcon(regGrayPiece);
@@ -92,6 +92,8 @@ public class Board extends JPanel implements ActionListener {
 				} else if (i > 4 && i % 2 == 0 && j % 2 == 1) {
 					squares[i][j].setIcon(regWhitePiece);
 					squares[i][j].setPiece(new Checker(Color.white, i, j));
+				} else {
+					// make it white or red empty new square
 				}
 			}
 		}
@@ -100,13 +102,45 @@ public class Board extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0; i < this.ROWS; i++) {
-			for (int j = 0; j < this.COLS; j++) {
+			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
+				
 				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
-					//array = squares[i][j].getPiece().canMove(this.squares);
-					//set those squares as highlighted (change bool)
+					// For anyone that looks at this before I get to it
+					// Currently pieces show the two open spaces
+					// But this needs to be refactored to send a list of all possible spaces and then handle changeing them here
+					// Pretty sure Couch said that and if so please tell me "I told you so"
+					// but that needs to happen
+					// I think an arrayList will make this easiest if we want to expand to double/triple jumps
+					// but as of now you can move pieces
+					squares = squares[i][j].getPiece().canMove(this.squares);
+					selectedSquare = squares[i][j];
+
+					System.out.println("Starting location: " + selectedSquare.getPiece().getX() + " "
+							+ selectedSquare.getPiece().getY());
+
+				} else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					selectedSquare.setIcon(redSquare);
+					squares[i][j].setPiece(selectedSquare.getPiece());
+					squares[i][j].setHighlighted(false);
+					selectedSquare.setPiece(null);
 					
-				} else if(e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
-					//move the piece to here
+					squares[i][j].getPiece().setX(i);
+					squares[i][j].getPiece().setY(j);
+					
+					if (squares[i][j].getPiece().getColor() == Color.gray) {
+						squares[i][j].setIcon(regGrayPiece);
+					} else {
+						squares[i][j].setIcon(regWhitePiece);
+					}
+					
+					selectedSquare = null;
+					break;
+				}
+				// if statement needs to be reworked to check for the buttons not pressed that also are highlighted
+				// and then have them turned to normal
+				if (e.getSource() != squares[i][j] && squares[i][j].isHighlighted()) {
+					squares[i][j].setHighlighted(false);
+					squares[i][j].setIcon(redSquare);
 				}
 			}
 		}
