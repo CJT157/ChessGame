@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -11,21 +12,15 @@ public class KingChecker extends Piece {
 	}
 
 	@Override
-	public Square[][] canMove(Square[][] currentBoard) {
-		ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
-		if (!currentBoard[this.x + 1][this.y - 1].hasPiece()) {
-			currentBoard[this.x + 1][this.y - 1].setIcon(highlightedSquare);
-		} 
-		if (!currentBoard[this.x + 1][this.y + 1].hasPiece()) {
-			currentBoard[this.x + 1][this.y + 1].setIcon(highlightedSquare);
+	public ArrayList<Square> canMove(Square[][] currentBoard) {
+		ArrayList<Square> possibleMoves = new ArrayList<Square>();
+		
+		for (int i = 0; i < 8; i++) {
+			for (int j = (i % 2 == 0 ? 1 : 0); j < 8; j += 2) {
+				
+			}
 		}
-		if (!currentBoard[this.x - 1][this.y - 1].hasPiece()) {
-			currentBoard[this.x - 1][this.y - 1].setIcon(highlightedSquare);
-		} 
-		if (!currentBoard[this.x - 1][this.y + 1].hasPiece()) {
-			currentBoard[this.x - 1][this.y + 1].setIcon(highlightedSquare);
-		}
-		return currentBoard;
+		return possibleMoves;
 	}
 
 	@Override

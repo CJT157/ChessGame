@@ -3,6 +3,7 @@ package Game;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class Board extends JPanel implements ActionListener {
 
 	private static Board board;
 	private Square[][] squares = new Square[ROWS][COLS];
+	private ArrayList<Square> possibleMoves = new ArrayList<Square>();
 	private Square selectedSquare = new Square();
 
 	/**
@@ -112,7 +114,7 @@ public class Board extends JPanel implements ActionListener {
 					// but that needs to happen
 					// I think an arrayList will make this easiest if we want to expand to double/triple jumps
 					// but as of now you can move pieces
-					squares = squares[i][j].getPiece().canMove(this.squares);
+					possibleMoves = squares[i][j].getPiece().canMove(this.squares);
 					selectedSquare = squares[i][j];
 
 					System.out.println("Starting location: " + selectedSquare.getPiece().getX() + " "

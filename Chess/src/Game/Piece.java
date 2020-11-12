@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 // Checker and King
 
@@ -24,6 +25,6 @@ public abstract class Piece {
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }
 
-	public abstract Square[][] canMove(Square[][] currentBoard);
+	public abstract ArrayList<Square> canMove(Square[][] currentBoard);
 	public abstract boolean captured();
 }

@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -13,34 +14,16 @@ public class Checker extends Piece {
 	}
 	
 	@Override
-	public Square[][] canMove(Square[][] currentBoard) {
-		ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
-		int x = this.x;
+	public ArrayList<Square> canMove(Square[][] currentBoard) {
+		ArrayList<Square> possibleMoves = new ArrayList<Square>();
 		
-		if (this.pieceColor == Color.gray) {
-			x += 1;
-		} else {
-			x -= 1;
-		}
-		
-		try {
-			if (!currentBoard[x][this.y - 1].hasPiece()) {
-				currentBoard[x][this.y - 1].setHighlighted(true);
-				currentBoard[x][this.y - 1].setIcon(highlightedSquare);
-			} 
-		} catch (Exception e) {
-			
-		}
-		try {
-			if (!currentBoard[x][this.y + 1].hasPiece()) {
-				currentBoard[x][this.y + 1].setHighlighted(true);
-				currentBoard[x][this.y + 1].setIcon(highlightedSquare);
+		for (int i = 0; i < 8; i++) {
+			for (int j = (i % 2 == 0 ? 1 : 0); j < 8; j += 2) {
+				
 			}
-		} catch (Exception e) {
-			
 		}
-
-		return currentBoard;
+		
+		return possibleMoves;
 	}
 	
 	@Override
