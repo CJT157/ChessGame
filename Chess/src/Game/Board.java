@@ -6,21 +6,29 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class Board extends JPanel{
+public class Board extends JPanel {
+	private final int ROWS = 8;
+	private final int COLS = 8;
+	private ImageIcon whiteSquare = new ImageIcon(this.getClass().getResource("images/square_white.jpg"));
+	private ImageIcon redSquare = new ImageIcon(this.getClass().getResource("images/square_red.png"));
+	private ImageIcon regWhitePiece = new ImageIcon(this.getClass().getResource("images/reg_checker_white.png"));
+	private ImageIcon regGrayPiece = new ImageIcon(this.getClass().getResource("images/reg_checker_gray.png"));
+	private ImageIcon kingWhitePiece = new ImageIcon(this.getClass().getResource("images/king_checker_white.png"));
+	private ImageIcon kingGrayPiece = new ImageIcon(this.getClass().getResource("images/king_checker_gray.png"));
+	private ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
+
 	private static Board board;
 	private PieceSet[] pieceSets;
-	private Square[][] squares;
+	private Square[][] squares = new Square[ROWS][COLS];
 	
 	/**
 	 * Sets up the checker board panel.
 	 */
-	public Board()
-	{
+	public Board() {
 		setBackground(Color.lightGray);
 		setPreferredSize(new Dimension(500, 500));
-		this.squares = getBoardColors();
 	}
 	
 	/**
@@ -29,65 +37,61 @@ public class Board extends JPanel{
 	public static Board getBoard() {
 		if (board == null) {
 			board = new Board();
+			board.makeBoard();
 		}
-		
+
 		return board;
 	}
 
-	/**
-	 * Displays squares and checkers on the application
-	 */
-	public void paintComponent(Graphics page)
-	{
-		super.paintComponent(page);
-
-		int x = 0, y = 0;
-		int width = getWidth();
-		int height = getHeight();
-		
-		int boxWidth = width/squares.length; // assumes it is a square
-		int boxHeight = height/squares.length;
-
-		page.setColor(Color.white);
-		
-		for (int row = 0; row < squares.length; row++)
-		{
-			for (int col = 0; col < squares[row].length; col++)
-			{
-				page.setColor(squares[row][col].getColor());
-				page.fillRect(x, y, boxWidth, boxHeight);
-				/**
-				 * HEY ADD ACTION TO DRAW A PIECE
-				 * GOOD LUCK
-				 */
-				x += boxWidth;
-			}
-			x = 0;
-			y += boxHeight;
-		}
+	public void setSquares(Square[][] squares) {
+		this.squares = squares;
 	}
 	
 	/**
-	 * Creates a 2d array of squares to display on the application
+	 * Displays squares and checkers on the application
 	 */
-	public Square[][] getBoardColors() {
-		Square[][] board = new Square[8][8];
-		for (int row = 0; row < board.length; row++)
-		{
-		   for (int col = 0; col < board[row].length; col++)
-		   {
-		       if(row % 2 == col%2)
-		    	   board[row][col] = new Square(Color.red);
-		       else {
-		    	   board[row][col] = new Square(Color.white);
-		    	   if (row < 3) {
-		    		   //board[row][col].setPiece(redpiece);
-		    	   } else if (row > 4) {
-		    		   //board[row][col].setPiece(blackpiece);
-		    	   }
-		       }
-		    }
+	public void makeBoard() {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				squares[i][j] = new Square();
+				squares[i][j].setPreferredSize(new Dimension(57,57));
+
+				if (i % 2 == 0) {
+					if (j % 2 == 0) {
+						squares[i][j].setIcon(whiteSquare);
+					} else {
+						squares[i][j].setIcon(redSquare);
+					}
+				} else {
+					if (j % 2 == 0) {
+						squares[i][j].setIcon(redSquare);
+					} else {
+						squares[i][j].setIcon(whiteSquare);
+					}
+				}
+
+				squares[i][j].setOpaque(true);
+				
+				board.add(squares[i][j]);
+			}
 		}
-		return board;
+	}
+	
+	public void resetPieces() {
+		for (int i = 0; i < this.ROWS; i++) {
+			for (int j = 0; j < this.COLS; j++) {
+
+				if (i < 3 && i % 2 == 0 && j % 2 == 1) {
+					squares[i][j].setIcon(regGrayPiece);
+				} else if (i < 3 && i % 2 == 1 && j % 2 == 0) {
+					squares[i][j].setIcon(regGrayPiece);
+				} else if (i > 4 && i % 2 == 1 && j % 2 == 0) {
+					squares[i][j].setIcon(regWhitePiece);
+				} else if (i > 4 && i % 2 == 0 && j % 2 == 1) {
+					squares[i][j].setIcon(regWhitePiece);
+				}
+
+			}
+		}
 	}
 }

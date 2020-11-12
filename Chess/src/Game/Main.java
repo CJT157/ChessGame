@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Stack;
 
-public class Main implements ActionListener{
+public class Main implements ActionListener {
 	JButton start, reset;
-	static Board gameBoard;
+	static Board board = Board.getBoard();
 	
 	/*
 	 * Creates application
 	 */
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createGUI();
@@ -34,6 +34,7 @@ public class Main implements ActionListener{
         else if(e.getSource() == reset)
         {
         	System.out.println("reset");
+        	board.resetPieces();
         }
     }
 	
@@ -44,16 +45,18 @@ public class Main implements ActionListener{
 	public static void createGUI() {
 		JFrame frame = new JFrame("CPS 240 Checkers");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		gameBoard = Board.getBoard();
+
 		Main gui = new Main();
 		frame.setContentPane(gui.createNavPane());
 		
-		frame.add(gameBoard.getBoard());
+		frame.add(board);
 		
-		frame.setSize(528,575);
+		frame.setSize(528,585);
 		frame.setVisible(true);
+		frame.setResizable(false);
+		board.resetPieces();
 	}
+	
 	
 	/*
 	 * Creates the nav bar for starting and reseting the checkerboard
