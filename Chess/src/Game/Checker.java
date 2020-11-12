@@ -5,9 +5,9 @@ import java.awt.Color;
 public class Checker extends Piece {
 	private boolean promoted;
 	private Piece promoteTo;
-	
-	public Checker(Color color) {
-		super(color);
+
+	public Checker(Color pieceColor, int x, int y) {
+		super(pieceColor, x, y);
 	}
 	
 	@Override

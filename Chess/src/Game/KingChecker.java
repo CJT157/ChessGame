@@ -1,6 +1,12 @@
 package Game;
 
+import java.awt.*;
+
 public class KingChecker extends Piece {
+
+	public KingChecker(Color pieceColor, int x, int y) {
+		super(pieceColor, x, y);
+	}
 
 	@Override
 	public Square[] canMove(Square[] currentBoard) {

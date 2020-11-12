@@ -85,14 +85,17 @@ public class Board extends JPanel implements ActionListener {
 
 				if (i < 3 && i % 2 == 0 && j % 2 == 1) {
 					squares[i][j].setIcon(regGrayPiece);
+					squares[i][j].setPiece(new Checker(Color.gray, i, j));
 				} else if (i < 3 && i % 2 == 1 && j % 2 == 0) {
 					squares[i][j].setIcon(regGrayPiece);
+					squares[i][j].setPiece(new Checker(Color.gray, i, j));
 				} else if (i > 4 && i % 2 == 1 && j % 2 == 0) {
 					squares[i][j].setIcon(regWhitePiece);
+					squares[i][j].setPiece(new Checker(Color.white, i, j));
 				} else if (i > 4 && i % 2 == 0 && j % 2 == 1) {
 					squares[i][j].setIcon(regWhitePiece);
+					squares[i][j].setPiece(new Checker(Color.white, i, j));
 				}
-
 			}
 		}
 	}

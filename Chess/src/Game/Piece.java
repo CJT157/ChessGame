@@ -6,25 +6,24 @@ import java.awt.Color;
 
 public abstract class Piece {
 	private Color pieceColor;
-	private boolean moved;
+	private int x;
+	private int y;
 	
-	public Piece() {
-		
+	public Piece(Color pieceColor, int x, int y) {
+		this.pieceColor = pieceColor;
+		this.x = x;
+		this.y = y;
 	}
-	
-	public Piece(Color color) {
-		this.pieceColor = color;
-	}
-	
+
 	public Color getColor() {
 		return pieceColor;
 	}
-	
-	public void setColor(Color color) {
-		this.pieceColor = color;
-	}
+	public int getX() { return x; }
+	public void setX(int x) { this.x = x; }
+	public int getY() { return y; }
+	public void setY(int y) { this.y = y; }
 
 	public abstract Square[] canMove(Square[] currentBoard);
-	
+
 	public abstract boolean captured();
 }
