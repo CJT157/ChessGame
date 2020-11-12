@@ -24,7 +24,7 @@ public abstract class Piece {
 		this.pieceColor = color;
 	}
 
-	public abstract Square[] canMove(Square[] currentBoard);
+	public abstract Square[] canMove(Square[][] currentBoard);
 	
 	public abstract boolean captured();
 }
