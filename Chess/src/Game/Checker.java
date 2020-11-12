@@ -11,7 +11,7 @@ public class Checker extends Piece {
 	}
 	
 	@Override
-	public Square[] canMove(Square[] currentBoard) {
+	public Square[] canMove(Square[][] currentBoard) {
 		Square[] possibleLocations = new Square[2];
 		//Use currentLocation to reference currentBoard
 		

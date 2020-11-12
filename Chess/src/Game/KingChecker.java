@@ -9,7 +9,7 @@ public class KingChecker extends Piece {
 	}
 
 	@Override
-	public Square[] canMove(Square[] currentBoard) {
+	public Square[] canMove(Square[][] currentBoard) {
 		Square[] possibleLocations = new Square[4];
 		//Use currentLocation to reference currentBoard
 		
@@ -22,5 +22,4 @@ public class KingChecker extends Piece {
 		
 		return false;
 	}
-	
 }

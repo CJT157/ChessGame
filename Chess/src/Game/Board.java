@@ -1,12 +1,10 @@
 package Game;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.*;
 
 public class Board extends JPanel implements ActionListener {
@@ -21,7 +19,6 @@ public class Board extends JPanel implements ActionListener {
 	private ImageIcon highlightedSquare = new ImageIcon(this.getClass().getResource("images/highlighted_square.png"));
 
 	private static Board board;
-	private PieceSet[] pieceSets;
 	private Square[][] squares = new Square[ROWS][COLS];
 	
 	/**
@@ -105,7 +102,11 @@ public class Board extends JPanel implements ActionListener {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = 0; j < this.COLS; j++) {
 				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
-					System.out.println(i + " " + j);
+					//array = squares[i][j].getPiece().canMove(this.squares);
+					//set those squares as highlighted (change bool)
+					
+				} else if(e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					//move the piece to here
 				}
 			}
 		}

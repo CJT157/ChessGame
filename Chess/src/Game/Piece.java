@@ -23,7 +23,6 @@ public abstract class Piece {
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }
 
-	public abstract Square[] canMove(Square[] currentBoard);
-
+	public abstract Square[] canMove(Square[][] currentBoard);
 	public abstract boolean captured();
 }
