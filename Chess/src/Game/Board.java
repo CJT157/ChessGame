@@ -107,8 +107,9 @@ public class Board extends JPanel implements ActionListener {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 				
+				// Checking if a Piece Button is pressed
 				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
-					
+					// Empty and revert the highlighted pieces that may be in possibleMoves
 					for (Square plot : possibleMoves) {
 						if (plot.hasPiece()) {
 							continue;
@@ -119,9 +120,11 @@ public class Board extends JPanel implements ActionListener {
 					}
 					possibleMoves.clear();
 					
+					// Get all possible moves
 					possibleMoves = squares[i][j].getPiece().canMove(this.squares);
 					selectedSquare = squares[i][j];
 					
+					// Change all possible empty squares to highlighted pieces
 					for (Square plot : possibleMoves) {
 						System.out.println(plot.hasPiece());
 						if (plot.hasPiece()) {
@@ -131,22 +134,28 @@ public class Board extends JPanel implements ActionListener {
 							plot.setIcon(highlightedSquare);
 						}
 					}
-
-				} else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					
+				}
+				// Checking if a highlighted button is pressed
+				else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					// Switch current piece button and highlighted button
 					selectedSquare.setIcon(redSquare);
 					squares[i][j].setPiece(selectedSquare.getPiece());
 					squares[i][j].setHighlighted(false);
 					selectedSquare.setPiece(null);
 					
+					// Setting Piece coordinates to new place
 					squares[i][j].getPiece().setX(i);
 					squares[i][j].getPiece().setY(j);
 					
+					// Checking for which Icon to change the button to
 					if (squares[i][j].getPiece().getColor() == Color.gray) {
 						squares[i][j].setIcon(regGrayPiece);
 					} else {
 						squares[i][j].setIcon(regWhitePiece);
 					}
 					
+					// Reverting all highlighted buttons
 					possibleMoves.remove(squares[i][j]);
 					for (Square plot : possibleMoves) {
 						if (plot.hasPiece()) {

@@ -30,6 +30,7 @@ public class Checker extends Piece {
 		int x = this.x + modifier;
 		int y = this.y;
 		
+		// Checking for possible locations west of a piece
 		try {
 			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece()) {
 				possibleMoves.add(currentBoard[x][y - 1]);
@@ -41,6 +42,7 @@ public class Checker extends Piece {
 
 		}
 		
+		// Checking for possible locations east of a piece
 		try {
 			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece()) {
 				possibleMoves.add(currentBoard[x][y + 1]);
