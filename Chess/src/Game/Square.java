@@ -1,5 +1,7 @@
 package Game;
 
+
+
 import java.awt.Dimension;
 
 import javax.swing.*;
@@ -23,3 +25,4 @@ public class Square extends JButton {
 	
 	public boolean hasPiece() { return currPiece != null; }
 }
+
