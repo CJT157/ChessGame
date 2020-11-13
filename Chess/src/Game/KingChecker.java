@@ -3,8 +3,6 @@ package Game;
 import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 public class KingChecker extends Piece {
 
 	public KingChecker(Color pieceColor, int x, int y) {

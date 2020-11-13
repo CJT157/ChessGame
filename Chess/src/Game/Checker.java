@@ -17,10 +17,36 @@ public class Checker extends Piece {
 	public ArrayList<Square> canMove(Square[][] currentBoard) {
 		ArrayList<Square> possibleMoves = new ArrayList<Square>();
 		
-		for (int i = 0; i < 8; i++) {
-			for (int j = (i % 2 == 0 ? 1 : 0); j < 8; j += 2) {
-				
+		// How this should work
+		/*
+		 * Takes initial location of piece (x, y)
+		 * recursively (fucking disgusting) check down/up to the right and left
+		 * first looks for two open spaces
+		 * if pieces are in either, recursion to check for more for double jumping
+		 * (use a separate method for recursion)
+		 */
+		
+		int x = (pieceColor == Color.white ? -1 + this.x : 1 + this.x);
+		int y = this.y;
+		
+		try {
+			if (currentBoard[x][y - 1].hasPiece() ) {
+				// Recursive stuffs if time
+			} else {
+				possibleMoves.add(currentBoard[x][y - 1]);
 			}
+		} catch (Exception e) {
+
+		}
+		
+		try {
+			if (currentBoard[x][y + 1].hasPiece()) {
+				// Recursive stuffs if time
+			} else {
+				possibleMoves.add(currentBoard[x][y + 1]);
+			}
+		} catch (Exception e) {
+
 		}
 		
 		return possibleMoves;

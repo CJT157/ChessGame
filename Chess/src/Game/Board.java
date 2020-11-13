@@ -95,7 +95,8 @@ public class Board extends JPanel implements ActionListener {
 					squares[i][j].setIcon(regWhitePiece);
 					squares[i][j].setPiece(new Checker(Color.white, i, j));
 				} else {
-					// make it white or red empty new square
+					squares[i][j].setIcon(redSquare);
+					squares[i][j].setPiece(null);
 				}
 			}
 		}
@@ -116,9 +117,11 @@ public class Board extends JPanel implements ActionListener {
 					// but as of now you can move pieces
 					possibleMoves = squares[i][j].getPiece().canMove(this.squares);
 					selectedSquare = squares[i][j];
-
-					System.out.println("Starting location: " + selectedSquare.getPiece().getX() + " "
-							+ selectedSquare.getPiece().getY());
+					
+					for (Square plot : possibleMoves) {
+						plot.setHighlighted(true);
+						plot.setIcon(highlightedSquare);
+					}
 
 				} else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
 					selectedSquare.setIcon(redSquare);
@@ -135,14 +138,14 @@ public class Board extends JPanel implements ActionListener {
 						squares[i][j].setIcon(regWhitePiece);
 					}
 					
+					possibleMoves.remove(squares[i][j]);
+					for (Square plot : possibleMoves) {
+						plot.setHighlighted(false);
+						plot.setIcon(redSquare);
+					}
+					
 					selectedSquare = null;
 					break;
-				}
-				// if statement needs to be reworked to check for the buttons not pressed that also are highlighted
-				// and then have them turned to normal
-				if (e.getSource() != squares[i][j] && squares[i][j].isHighlighted()) {
-					squares[i][j].setHighlighted(false);
-					squares[i][j].setIcon(redSquare);
 				}
 			}
 		}
