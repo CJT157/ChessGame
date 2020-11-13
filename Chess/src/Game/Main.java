@@ -4,16 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.Random;
-import java.util.Stack;
-
-public class Main implements ActionListener{
-	JButton start, reset;
+public class Main implements ActionListener {
+	JButton reset;
+	static Board board = Board.getBoard();
 	
 	/*
 	 * Creates application
 	 */
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createGUI();
@@ -26,13 +24,9 @@ public class Main implements ActionListener{
 	 * NOTE: Put Board start/reset funcitonality here
 	 */
 	public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == start)
+		if(e.getSource() == reset)
         {
-            System.out.println("BOARD START GOES HERE");
-        }
-        else if(e.getSource() == reset)
-        {
-            System.out.println("BOARD RESET GOES HERE");
+        	board.resetPieces();
         }
     }
 	
@@ -41,21 +35,20 @@ public class Main implements ActionListener{
 	 * NOTE: Jack and Landon this is where the Board will be added to the application
 	 */
 	public static void createGUI() {
-		JFrame frame = new JFrame("CPS 210 Checkers");
+		JFrame frame = new JFrame("CPS 240 Checkers");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
-       
-		JPanel boardPanel = new JPanel();
-		boardPanel.setLocation(10, 10);
-		boardPanel.setSize(50,50);
-		
+
 		Main gui = new Main();
 		frame.setContentPane(gui.createNavPane());
-		frame.add(boardPanel);
-       
-		frame.setSize(500,500);
+		
+		frame.add(board);
+		
+		frame.setSize(528,585);
 		frame.setVisible(true);
+		frame.setResizable(false);
+		board.resetPieces();
 	}
+	
 	
 	/*
 	 * Creates the nav bar for starting and reseting the checkerboard
@@ -65,15 +58,10 @@ public class Main implements ActionListener{
 		navPanel.setLocation(220, 10);
 		navPanel.setSize(150, 100);
        
-		start = new JButton("Start");
-		start.addActionListener(this);
-		start.setPreferredSize(new Dimension(100,30));
-       
 		reset = new JButton("Reset");
 		reset.addActionListener(this);
 		reset.setPreferredSize(new Dimension(100,30));
-       
-		navPanel.add(start);
+		
 		navPanel.add(reset);
        
 		return navPanel;

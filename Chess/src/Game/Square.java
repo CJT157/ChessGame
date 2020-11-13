@@ -1,35 +1,28 @@
 package Game;
 
-import java.awt.Rectangle;
 
 
+import java.awt.Dimension;
 
-public class Square {
-	private int x;
-	private int y;
-	private int size;
-	private boolean isVisible;
-	private String color;
+import javax.swing.*;
+
+public class Square extends JButton {
+	private Piece currPiece;
+	private boolean isHighlight;
 	
-	Square(int size, int x, int y, String color){
-		this.size = size;
-		this.x = x;
-		this.y = y;
-		this.color = color;
-		
+	public Square() {
+		currPiece = null;
+		isHighlight = false;
+		setPreferredSize(new Dimension(57,57));
 	}
-
-	protected void draw() {
-	// TODO Auto-generated method stub
-	if(isVisible) {
-		frame canvas = frame.getCanvas();
-		canvas.draw(this, color, new Rectangle(x, y, 40, 40));
-		
-	}
-	}
-	public void makeVisible()
-	{
-		isVisible = true;
-		draw();
-	}
+	
+	public boolean isHighlighted() { return isHighlight; }
+	public void setHighlighted(boolean state) { isHighlight = state; }
+	
+	public Piece getPiece() { return currPiece; }
+	
+	public void setPiece(Piece piece) { this.currPiece = piece; }
+	
+	public boolean hasPiece() { return currPiece != null; }
 }
+
