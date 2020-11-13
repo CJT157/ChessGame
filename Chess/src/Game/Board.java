@@ -108,19 +108,28 @@ public class Board extends JPanel implements ActionListener {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 				
 				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
-					// For anyone that looks at this before I get to it
-					// Currently pieces show the two open spaces
-					// But this needs to be refactored to send a list of all possible spaces and then handle changeing them here
-					// Pretty sure Couch said that and if so please tell me "I told you so"
-					// but that needs to happen
-					// I think an arrayList will make this easiest if we want to expand to double/triple jumps
-					// but as of now you can move pieces
+					
+					for (Square plot : possibleMoves) {
+						if (plot.hasPiece()) {
+							continue;
+						} else {
+							plot.setHighlighted(false);
+							plot.setIcon(redSquare);
+						}
+					}
+					possibleMoves.clear();
+					
 					possibleMoves = squares[i][j].getPiece().canMove(this.squares);
 					selectedSquare = squares[i][j];
 					
 					for (Square plot : possibleMoves) {
-						plot.setHighlighted(true);
-						plot.setIcon(highlightedSquare);
+						System.out.println(plot.hasPiece());
+						if (plot.hasPiece()) {
+							
+						} else {
+							plot.setHighlighted(true);
+							plot.setIcon(highlightedSquare);
+						}
 					}
 
 				} else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
@@ -140,9 +149,14 @@ public class Board extends JPanel implements ActionListener {
 					
 					possibleMoves.remove(squares[i][j]);
 					for (Square plot : possibleMoves) {
-						plot.setHighlighted(false);
-						plot.setIcon(redSquare);
+						if (plot.hasPiece()) {
+							continue;
+						} else {
+							plot.setHighlighted(false);
+							plot.setIcon(redSquare);
+						}
 					}
+					possibleMoves.clear();
 					
 					selectedSquare = null;
 					break;

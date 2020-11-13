@@ -27,4 +27,9 @@ public abstract class Piece {
 
 	public abstract ArrayList<Square> canMove(Square[][] currentBoard);
 	public abstract boolean captured();
+
+	@Override
+	public String toString() {
+		return "Piece [pieceColor=" + pieceColor + ", x=" + x + ", y=" + y + "]";
+	}
 }

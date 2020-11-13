@@ -24,5 +24,12 @@ public class Square extends JButton {
 	public void setPiece(Piece piece) { this.currPiece = piece; }
 	
 	public boolean hasPiece() { return currPiece != null; }
+
+	@Override
+	public String toString() {
+		return "Square [currPiece=" + currPiece + ", isHighlight=" + isHighlight + "]";
+	}
+	
+	
 }
 

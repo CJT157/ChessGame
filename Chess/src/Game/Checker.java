@@ -26,12 +26,14 @@ public class Checker extends Piece {
 		 * (use a separate method for recursion)
 		 */
 		
-		int x = (pieceColor == Color.white ? -1 + this.x : 1 + this.x);
+		int modifier = (pieceColor == Color.white ? -1 : 1);
+		int x = this.x + modifier;
 		int y = this.y;
 		
 		try {
-			if (currentBoard[x][y - 1].hasPiece() ) {
-				// Recursive stuffs if time
+			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece()) {
+				possibleMoves.add(currentBoard[x][y - 1]);
+				possibleMoves.add(currentBoard[x + modifier][y - 2]);
 			} else {
 				possibleMoves.add(currentBoard[x][y - 1]);
 			}
@@ -40,13 +42,14 @@ public class Checker extends Piece {
 		}
 		
 		try {
-			if (currentBoard[x][y + 1].hasPiece()) {
-				// Recursive stuffs if time
+			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece()) {
+				possibleMoves.add(currentBoard[x][y + 1]);
+				possibleMoves.add(currentBoard[x + modifier][y + 2]);
 			} else {
 				possibleMoves.add(currentBoard[x][y + 1]);
 			}
 		} catch (Exception e) {
-
+			
 		}
 		
 		return possibleMoves;
