@@ -150,9 +150,17 @@ public class Board extends JPanel implements ActionListener {
 					
 					// Checking for which Icon to change the button to
 					if (squares[i][j].getPiece().getColor() == Color.gray) {
-						squares[i][j].setIcon(regGrayPiece);
+						if(i == 7) {
+							squares[i][j].setIcon(kingGrayPiece);
+						} else {
+							squares[i][j].setIcon(regGrayPiece);
+						}
 					} else {
-						squares[i][j].setIcon(regWhitePiece);
+						if(i == 0) {
+							squares[i][j].setIcon(kingWhitePiece);
+						} else {
+							squares[i][j].setIcon(regWhitePiece);
+						}
 					}
 					
 					// Reverting all highlighted buttons

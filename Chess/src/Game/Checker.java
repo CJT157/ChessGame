@@ -32,7 +32,7 @@ public class Checker extends Piece {
 		
 		// Checking for possible locations west of a piece
 		try {
-			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece()) {
+			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece() && currentBoard[x][y - 1].getPiece().getColor() != this.getColor()) {
 				possibleMoves.add(currentBoard[x][y - 1]);
 				possibleMoves.add(currentBoard[x + modifier][y - 2]);
 			} else {
@@ -44,7 +44,7 @@ public class Checker extends Piece {
 		
 		// Checking for possible locations east of a piece
 		try {
-			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece()) {
+			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece() && currentBoard[x][y - 1].getPiece().getColor() != this.getColor()) {
 				possibleMoves.add(currentBoard[x][y + 1]);
 				possibleMoves.add(currentBoard[x + modifier][y + 2]);
 			} else {
