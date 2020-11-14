@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Checker extends Piece {
-	private boolean promoted;
 	private Piece promoteTo;
 
 	public Checker(Color pieceColor, int x, int y) {
@@ -55,11 +54,5 @@ public class Checker extends Piece {
 		}
 		
 		return possibleMoves;
-	}
-	
-	@Override
-	public boolean captured() {
-		
-		return false;
 	}
 }

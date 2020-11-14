@@ -26,10 +26,4 @@ public abstract class Piece {
 	public void setY(int y) { this.y = y; }
 
 	public abstract ArrayList<Square> canMove(Square[][] currentBoard);
-	public abstract boolean captured();
-
-	@Override
-	public String toString() {
-		return "Piece [pieceColor=" + pieceColor + ", x=" + x + ", y=" + y + "]";
-	}
 }

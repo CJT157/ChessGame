@@ -23,6 +23,9 @@ public class Board extends JPanel implements ActionListener {
 	private Square[][] squares = new Square[ROWS][COLS];
 	private ArrayList<Square> possibleMoves = new ArrayList<Square>();
 	private Square selectedSquare = new Square();
+	private Player playerWhite = new Player(Color.white);
+	private Player playerGray = new Player(Color.gray);
+	private Player currentTurn = playerWhite;
 
 	/**
 	 * Sets up the checker board panel.
@@ -100,6 +103,8 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
+		playerWhite.resetPlayer();
+		playerGray.resetPlayer();
 	}
 
 	@Override
@@ -107,8 +112,10 @@ public class Board extends JPanel implements ActionListener {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 				
+				Main.updateTurn(board.getTurn().toString());
+				
 				// Checking if a Piece Button is pressed
-				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
+				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece() && squares[i][j].getPiece().getColor().equals(getTurn().getPieceColor())) {
 					// Empty and revert the highlighted pieces that may be in possibleMoves
 					for (Square plot : possibleMoves) {
 						if (plot.hasPiece()) {
@@ -126,7 +133,6 @@ public class Board extends JPanel implements ActionListener {
 					
 					// Change all possible empty squares to highlighted pieces
 					for (Square plot : possibleMoves) {
-						System.out.println(plot.hasPiece());
 						if (plot.hasPiece()) {
 							
 						} else {
@@ -138,9 +144,35 @@ public class Board extends JPanel implements ActionListener {
 				}
 				// Checking if a highlighted button is pressed
 				else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					//dummy x and y for previous place
+					
 					// Switch current piece button and highlighted button
 					selectedSquare.setIcon(redSquare);
 					squares[i][j].setPiece(selectedSquare.getPiece());
+					
+					int xDifference = selectedSquare.getPiece().getX() - i;
+					int yDifference = selectedSquare.getPiece().getY() - j;
+					
+					if((xDifference == 2 || xDifference == -2) && (yDifference == 2 || yDifference == -2)) {
+						if(xDifference < 0 && yDifference < 0) {
+							removePiece(squares[i-1][j-1].getPiece().getColor());
+							squares[i-1][j-1].setPiece(null);
+							squares[i-1][j-1].setIcon(redSquare);
+						} else if(xDifference < 0 && yDifference > 0) {
+							removePiece(squares[i-1][j+1].getPiece().getColor());
+							squares[i-1][j+1].setPiece(null);
+							squares[i-1][j+1].setIcon(redSquare);
+						} else if(xDifference > 0 && yDifference < 0) {
+							removePiece(squares[i+1][j-1].getPiece().getColor());
+							squares[i+1][j-1].setPiece(null);
+							squares[i+1][j-1].setIcon(redSquare);
+						} else if(xDifference > 0 && yDifference > 0) {
+							removePiece(squares[i+1][j+1].getPiece().getColor());
+							squares[i+1][j+1].setPiece(null);
+							squares[i+1][j+1].setIcon(redSquare);
+						}
+					}
+					
 					squares[i][j].setHighlighted(false);
 					selectedSquare.setPiece(null);
 					
@@ -150,14 +182,16 @@ public class Board extends JPanel implements ActionListener {
 					
 					// Checking for which Icon to change the button to
 					if (squares[i][j].getPiece().getColor() == Color.gray) {
-						if(i == 7) {
+						if(i == 7 || squares[i][j].getPiece() instanceof KingChecker) {
 							squares[i][j].setIcon(kingGrayPiece);
+							squares[i][j].setPiece(new KingChecker(Color.gray, i, j));
 						} else {
 							squares[i][j].setIcon(regGrayPiece);
 						}
 					} else {
-						if(i == 0) {
+						if(i == 0 || squares[i][j].getPiece() instanceof KingChecker) {
 							squares[i][j].setIcon(kingWhitePiece);
+							squares[i][j].setPiece(new KingChecker(Color.white, i, j));
 						} else {
 							squares[i][j].setIcon(regWhitePiece);
 						}
@@ -175,10 +209,37 @@ public class Board extends JPanel implements ActionListener {
 					}
 					possibleMoves.clear();
 					
+					board.switchTurns();
+					
 					selectedSquare = null;
 					break;
 				}
+				if(playerWhite.getPieceNum() == 0) {
+					Main.updateTurn("Gray Wins!!!!");
+				} else if (playerGray.getPieceNum() == 0) {
+					Main.updateTurn("White Wins!!!!");
+				}
 			}
+		}
+	}
+	
+	public void removePiece(Color color) {
+		if(color.equals(playerWhite.getPieceColor())) {
+			playerWhite.decreasePieces(1);
+		} else {
+			playerGray.decreasePieces(1);
+		}
+	}
+	
+	public Player getTurn() {
+		return this.currentTurn;
+	}
+	
+	public void switchTurns() {
+		if(currentTurn.equals(playerWhite)) {
+			currentTurn = playerGray;
+		} else {
+			currentTurn = playerWhite;
 		}
 	}
 }
