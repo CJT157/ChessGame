@@ -23,6 +23,9 @@ public class Board extends JPanel implements ActionListener {
 	private Square[][] squares = new Square[ROWS][COLS];
 	private ArrayList<Square> possibleMoves = new ArrayList<Square>();
 	private Square selectedSquare = new Square();
+	private Player playerWhite = new Player(Color.white);
+	private Player playerGray = new Player(Color.gray);
+	private Player currentTurn = playerWhite;
 
 	/**
 	 * Sets up the checker board panel.
@@ -100,6 +103,8 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
+		playerWhite.resetPlayer();
+		playerGray.resetPlayer();
 	}
 
 	@Override
@@ -107,8 +112,10 @@ public class Board extends JPanel implements ActionListener {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 				
+				Main.updateTurn(board.getTurn().toString());
+				
 				// Checking if a Piece Button is pressed
-				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece()) {
+				if (e.getSource() == squares[i][j] && squares[i][j].hasPiece() && squares[i][j].getPiece().getColor().equals(getTurn().getPieceColor())) {
 					// Empty and revert the highlighted pieces that may be in possibleMoves
 					for (Square plot : possibleMoves) {
 						if (plot.hasPiece()) {
@@ -147,15 +154,19 @@ public class Board extends JPanel implements ActionListener {
 					
 					if ((xDifference == 2 || xDifference == -2) && (yDifference == 2 || yDifference == -2)) {
 						if (xDifference < 0 && yDifference < 0) {
+							removePiece(squares[i - 1][j - 1].getPiece().getColor());
 					  		squares[i - 1][j - 1].setPiece(null);
 					  		squares[i - 1][j - 1].setIcon(redSquare);
 						} else if (xDifference < 0 && yDifference > 0) {
+							removePiece(squares[i - 1][j + 1].getPiece().getColor());
 							squares[i - 1][j + 1].setPiece(null);
 					  		squares[i - 1][j + 1].setIcon(redSquare);
 						} else if (xDifference > 0 && yDifference < 0) {
+							removePiece(squares[i + 1][j - 1].getPiece().getColor());
 							squares[i + 1][j - 1].setPiece(null);
 					  		squares[i + 1][j - 1].setIcon(redSquare);
 						} else if (xDifference > 0 && yDifference > 0) {
+							removePiece(squares[i + 1][j + 1].getPiece().getColor());
 							squares[i + 1][j + 1].setPiece(null);
 					  		squares[i + 1][j + 1].setIcon(redSquare);
 						}
@@ -199,10 +210,38 @@ public class Board extends JPanel implements ActionListener {
 					}
 					possibleMoves.clear();
 					
+					board.switchTurns();
+					
 					selectedSquare = null;
 					break;
 				}
+				
+				if (playerWhite.getPieceNum() <= 0) {
+					Main.updateTurn("Gray Wins!!!!");
+				} else if (playerGray.getPieceNum() <= 0) {
+					Main.updateTurn("White Wins!!!!");
+				}
 			}
+		}
+	}
+	
+	public void removePiece(Color color) {
+		if (color.equals(playerWhite.getPieceColor())) {
+			playerWhite.decreasePieces(1);
+		} else {
+			playerGray.decreasePieces(1);
+		}
+	}
+	
+	public Player getTurn() {
+		return currentTurn;
+	}
+	
+	public void switchTurns() {
+		if (currentTurn.equals(playerWhite)) {
+			currentTurn = playerGray;
+		} else {
+			currentTurn = playerWhite;
 		}
 	}
 }

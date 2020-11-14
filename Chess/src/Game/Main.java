@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Main implements ActionListener {
 	JButton reset;
+	static JLabel playerTurn;
 	static Board board = Board.getBoard();
 	
 	/*
@@ -21,7 +22,6 @@ public class Main implements ActionListener {
 	
 	/*
 	 * Listens to any actions performed
-	 * NOTE: Put Board start/reset funcitonality here
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == reset)
@@ -32,7 +32,6 @@ public class Main implements ActionListener {
 	
 	/*
 	 * Creates the frame and the panels for checkers
-	 * NOTE: Jack and Landon this is where the Board will be added to the application
 	 */
 	public static void createGUI() {
 		JFrame frame = new JFrame("CPS 240 Checkers");
@@ -57,13 +56,21 @@ public class Main implements ActionListener {
 		JPanel navPanel = new JPanel();
 		navPanel.setLocation(220, 10);
 		navPanel.setSize(150, 100);
+		
+		playerTurn = new JLabel(board.getTurn().toString());
+		playerTurn.setPreferredSize(new Dimension(100,30));
        
 		reset = new JButton("Reset");
 		reset.addActionListener(this);
 		reset.setPreferredSize(new Dimension(100,30));
 		
+		navPanel.add(playerTurn);
 		navPanel.add(reset);
        
 		return navPanel;
+	}
+	
+	public static void updateTurn(String text) {
+		playerTurn.setText(text);
 	}
 }
