@@ -126,7 +126,6 @@ public class Board extends JPanel implements ActionListener {
 					
 					// Change all possible empty squares to highlighted pieces
 					for (Square plot : possibleMoves) {
-						System.out.println(plot.hasPiece());
 						if (plot.hasPiece()) {
 							
 						} else {
@@ -138,9 +137,30 @@ public class Board extends JPanel implements ActionListener {
 				}
 				// Checking if a highlighted button is pressed
 				else if (e.getSource() == squares[i][j] && squares[i][j].isHighlighted()) {
+					
 					// Switch current piece button and highlighted button
 					selectedSquare.setIcon(redSquare);
 					squares[i][j].setPiece(selectedSquare.getPiece());
+					
+					int xDifference = selectedSquare.getPiece().getX() - i;
+					int yDifference = selectedSquare.getPiece().getY() - j;
+					
+					if ((xDifference == 2 || xDifference == -2) && (yDifference == 2 || yDifference == -2)) {
+						if (xDifference < 0 && yDifference < 0) {
+					  		squares[i - 1][j - 1].setPiece(null);
+					  		squares[i - 1][j - 1].setIcon(redSquare);
+						} else if (xDifference < 0 && yDifference > 0) {
+							squares[i - 1][j + 1].setPiece(null);
+					  		squares[i - 1][j + 1].setIcon(redSquare);
+						} else if (xDifference > 0 && yDifference < 0) {
+							squares[i + 1][j - 1].setPiece(null);
+					  		squares[i + 1][j - 1].setIcon(redSquare);
+						} else if (xDifference > 0 && yDifference > 0) {
+							squares[i + 1][j + 1].setPiece(null);
+					  		squares[i + 1][j + 1].setIcon(redSquare);
+						}
+					} 
+					
 					squares[i][j].setHighlighted(false);
 					selectedSquare.setPiece(null);
 					
@@ -150,18 +170,22 @@ public class Board extends JPanel implements ActionListener {
 					
 					// Checking for which Icon to change the button to
 					if (squares[i][j].getPiece().getColor() == Color.gray) {
-						if(i == 7) {
+						
+						if(i == 7  || squares[i][j].getPiece() instanceof KingChecker) {
 							squares[i][j].setIcon(kingGrayPiece);
+							squares[i][j].setPiece(new KingChecker(Color.gray, i, j));
 						} else {
 							squares[i][j].setIcon(regGrayPiece);
 						}
 					} else {
-						if(i == 0) {
+						if(i == 0 || squares[i][j].getPiece() instanceof KingChecker) {
 							squares[i][j].setIcon(kingWhitePiece);
+							squares[i][j].setPiece(new KingChecker(Color.white, i, j));
 						} else {
 							squares[i][j].setIcon(regWhitePiece);
 						}
 					}
+					
 					
 					// Reverting all highlighted buttons
 					possibleMoves.remove(squares[i][j]);

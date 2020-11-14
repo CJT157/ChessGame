@@ -22,51 +22,35 @@ public class KingChecker extends Piece {
 		 * (use a separate method for recursion)
 		 */
 		
-		int modifier = (pieceColor == Color.white ? -1 : 1);
-		int x = this.x + modifier;
+		int x = this.x;
 		int y = this.y;
 		
-		// Checking for possible locations west of a piece
-		try {
-			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece() && currentBoard[x][y - 1].getPiece().getColor() != this.getColor()) {
-				possibleMoves.add(currentBoard[x][y - 1]);
-				possibleMoves.add(currentBoard[x + modifier][y - 2]);
-			} else {
-				possibleMoves.add(currentBoard[x][y - 1]);
+		for (int i = -1; i < 2; i += 2) {
+			// Checking for possible locations west of a piece
+			try {
+				if (currentBoard[x + i][y - 1].hasPiece() && !currentBoard[x + (2 * i)][y - 2].hasPiece() && currentBoard[x + i][y - 1].getPiece().getColor() != this.getColor()) {
+					possibleMoves.add(currentBoard[x + i][y - 1]);
+					possibleMoves.add(currentBoard[x + (2 * i)][y - 2]);
+				} else {
+					possibleMoves.add(currentBoard[x + i][y - 1]);
+				}
+			} catch (Exception e) {
+	
 			}
-		} catch (Exception e) {
-
-		}
-		
-		// Checking for possible locations east of a piece
-		try {
-			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece() && currentBoard[x][y - 1].getPiece().getColor() != this.getColor()) {
-				possibleMoves.add(currentBoard[x][y + 1]);
-				possibleMoves.add(currentBoard[x + modifier][y + 2]);
-			} else {
-				possibleMoves.add(currentBoard[x][y + 1]);
-			}
-		} catch (Exception e) {
 			
+			// Checking for possible locations east of a piece
+			try {
+				if (currentBoard[x + i][y + 1].hasPiece() && !currentBoard[x + (2 * i)][y + 2].hasPiece() && currentBoard[x + i][y + 1].getPiece().getColor() != this.getColor()) {
+					possibleMoves.add(currentBoard[x + i][y + 1]);
+					possibleMoves.add(currentBoard[x + (2 * i)][y + 2]);
+				} else {
+					possibleMoves.add(currentBoard[x + i][y + 1]);
+				}
+			} catch (Exception e) {
+				
+			}
 		}
 		
 		return possibleMoves;
-		
-		
-		
-//		ArrayList<Square> possibleMoves = new ArrayList<Square>();
-//		
-//		for (int i = 0; i < 8; i++) {
-//			for (int j = (i % 2 == 0 ? 1 : 0); j < 8; j += 2) {
-//				
-//			}
-//		}
-//		return possibleMoves;
-	}
-
-	@Override
-	public boolean captured() {
-		
-		return false;
 	}
 }
