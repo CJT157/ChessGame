@@ -50,7 +50,7 @@ public class Main implements ActionListener {
 	
 	
 	/*
-	 * Creates the nav bar for starting and reseting the checkerboard
+	 * Creates the nav bar for displaying the turn and reseting the checkerboard
 	 */
 	public JPanel createNavPane() {
 		JPanel navPanel = new JPanel();
@@ -70,6 +70,9 @@ public class Main implements ActionListener {
 		return navPanel;
 	}
 	
+	/*
+	 * Resets the text of the player turn JLabel after each turn
+	 */
 	public static void updateTurn(String text) {
 		playerTurn.setText(text);
 	}

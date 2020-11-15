@@ -6,6 +6,10 @@ public class Player {
 	private Color pieceColor;
 	private int pieceNum;
 	
+	/**
+	 * Constructor for player
+	 * @param pieceColor the color of the player
+	 */
 	public Player(Color pieceColor) {
 		this.pieceColor = pieceColor;
 		this.pieceNum = 12;
@@ -35,6 +39,9 @@ public class Player {
 		this.pieceNum = 12;
 	}
 	
+	/**
+	 * Returns the current players color to get the turn string
+	 */
 	@Override
 	public String toString() {
 		if (this.pieceColor.equals(Color.white)) {

@@ -47,12 +47,15 @@ public class Board extends JPanel implements ActionListener {
 		return board;
 	}
 
+	/**
+	 * Sets the variable squares to the given parameter
+	 */
 	public void setSquares(Square[][] squares) {
 		this.squares = squares;
 	}
 
 	/**
-	 * Displays squares and checkers on the application
+	 * Displays squares on the application
 	 */
 	public void makeBoard() {
 		for (int i = 0; i < ROWS; i++) {
@@ -80,7 +83,10 @@ public class Board extends JPanel implements ActionListener {
 			}
 		}
 	}
-
+	
+	/**
+	 * Resets the pieces on the correct squares
+	 */
 	public void resetPieces() {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
@@ -107,11 +113,15 @@ public class Board extends JPanel implements ActionListener {
 		playerGray.resetPlayer();
 	}
 
+	/**
+	 * Listens for any square or piece pressed action
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0; i < this.ROWS; i++) {
 			for (int j = (i % 2 == 0 ? 1 : 0); j < this.COLS; j += 2) {
 				
+				// Updates the turn JLabel after each turn
 				Main.updateTurn(board.getTurn().toString());
 				
 				// Checking if a Piece Button is pressed
@@ -149,9 +159,11 @@ public class Board extends JPanel implements ActionListener {
 					selectedSquare.setIcon(redSquare);
 					squares[i][j].setPiece(selectedSquare.getPiece());
 					
+					// Find the difference between the previous position and the new position
 					int xDifference = selectedSquare.getPiece().getX() - i;
 					int yDifference = selectedSquare.getPiece().getY() - j;
 					
+					// If the difference is 2, delete the piece that was jumped
 					if ((xDifference == 2 || xDifference == -2) && (yDifference == 2 || yDifference == -2)) {
 						if (xDifference < 0 && yDifference < 0) {
 							removePiece(squares[i - 1][j - 1].getPiece().getColor());
@@ -179,7 +191,7 @@ public class Board extends JPanel implements ActionListener {
 					squares[i][j].getPiece().setX(i);
 					squares[i][j].getPiece().setY(j);
 					
-					// Checking for which Icon to change the button to
+					// Checking for which Icon (King or Regular) to change the button to
 					if (squares[i][j].getPiece().getColor() == Color.gray) {
 						
 						if(i == 7  || squares[i][j].getPiece() instanceof KingChecker) {
@@ -210,12 +222,14 @@ public class Board extends JPanel implements ActionListener {
 					}
 					possibleMoves.clear();
 					
+					// Switch the turn to the other player
 					board.switchTurns();
 					
 					selectedSquare = null;
 					break;
 				}
 				
+				// If either player has 0 pieces left after the turn, display what color wins
 				if (playerWhite.getPieceNum() <= 0) {
 					Main.updateTurn("Gray Wins!!!!");
 				} else if (playerGray.getPieceNum() <= 0) {
@@ -225,6 +239,7 @@ public class Board extends JPanel implements ActionListener {
 		}
 	}
 	
+	// Removes a piece from a player if it was jumped
 	public void removePiece(Color color) {
 		if (color.equals(playerWhite.getPieceColor())) {
 			playerWhite.decreasePieces(1);
@@ -233,10 +248,12 @@ public class Board extends JPanel implements ActionListener {
 		}
 	}
 	
+	// Gets the current players turn
 	public Player getTurn() {
 		return currentTurn;
 	}
 	
+	// Switches the turn between the two players
 	public void switchTurns() {
 		if (currentTurn.equals(playerWhite)) {
 			currentTurn = playerGray;

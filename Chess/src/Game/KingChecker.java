@@ -9,22 +9,18 @@ public class KingChecker extends Piece {
 		super(pieceColor, x, y);
 	}
 
+	/**
+	 * Finds the possible moves the king checker selected can make
+	 */
 	@Override
 	public ArrayList<Square> canMove(Square[][] currentBoard) {
+		// Creates an arrayList to hold possible moves
 		ArrayList<Square> possibleMoves = new ArrayList<Square>();
-		
-		// How this should work
-		/*
-		 * Takes initial location of piece (x, y)
-		 * recursively (fucking disgusting) check down/up to the right and left
-		 * first looks for two open spaces
-		 * if pieces are in either, recursion to check for more for double jumping
-		 * (use a separate method for recursion)
-		 */
 		
 		int x = this.x;
 		int y = this.y;
 		
+		// Checks both ahead and behind the piece
 		for (int i = -1; i < 2; i += 2) {
 			// Checking for possible locations west of a piece
 			try {
