@@ -38,5 +38,19 @@ public abstract class Piece {
 	public int getY() { return y; }
 	public void setY(int y) { this.y = y; }
 
-	public abstract ArrayList<Square> canMove(Square[][] currentBoard);
+	public ArrayList<Square> canMove(Square[][] currentBoard) {
+		ArrayList<Square> possibleMoves = new ArrayList<Square>();
+		
+		int x = this.x;
+		int y = this.y;
+		
+		possibleMoves.addAll(checkLeft(currentBoard, possibleMoves, x, y));
+		possibleMoves.addAll(checkRight(currentBoard, possibleMoves, x, y));
+		
+		return possibleMoves;
+	}
+	
+	public abstract ArrayList<Square> checkLeft(Square[][] currentBoard, ArrayList<Square> possibleMoves, int x, int y);
+	
+	public abstract ArrayList<Square> checkRight(Square[][] currentBoard, ArrayList<Square> possibleMoves, int x, int y);
 }

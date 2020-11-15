@@ -109,8 +109,11 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
+		currentTurn = playerWhite;
 		playerWhite.resetPlayer();
 		playerGray.resetPlayer();
+		
+		Main.updateTurn(board.getTurn().toString());
 	}
 
 	/**

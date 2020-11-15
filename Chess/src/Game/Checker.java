@@ -12,18 +12,12 @@ public class Checker extends Piece {
 	}
 	
 	/**
-	 * Finds the possible moves the regular checker selected can make
+	 * Finds the possible moves the regular checker selected can make to the left
 	 */
-	@Override
-	public ArrayList<Square> canMove(Square[][] currentBoard) {
-		// Creates an arrayList to hold possible moves
-		ArrayList<Square> possibleMoves = new ArrayList<Square>();
-		
+	public ArrayList<Square> checkLeft(Square[][] currentBoard, ArrayList<Square> possibleMoves, int x, int y) {
 		int modifier = (pieceColor == Color.white ? -1 : 1);
-		int x = this.x + modifier;
-		int y = this.y;
+		x += modifier;
 		
-		// Checking for possible locations west of a piece
 		try {
 			if (currentBoard[x][y - 1].hasPiece() && !currentBoard[x + modifier][y - 2].hasPiece() && currentBoard[x][y - 1].getPiece().getColor() != this.getColor()) {
 				possibleMoves.add(currentBoard[x][y - 1]);
@@ -35,7 +29,16 @@ public class Checker extends Piece {
 
 		}
 		
-		// Checking for possible locations east of a piece
+		return possibleMoves;
+	}
+	
+	/**
+	 * Finds the possible moves the regular checker selected can make to the right
+	 */
+	public ArrayList<Square> checkRight(Square[][] currentBoard, ArrayList<Square> possibleMoves, int x, int y) {
+		int modifier = (pieceColor == Color.white ? -1 : 1);
+		x += modifier;
+		
 		try {
 			if (currentBoard[x][y + 1].hasPiece() && !currentBoard[x + modifier][y + 2].hasPiece() && currentBoard[x][y + 1].getPiece().getColor() != this.getColor()) {
 				possibleMoves.add(currentBoard[x][y + 1]);
